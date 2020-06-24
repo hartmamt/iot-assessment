@@ -13,7 +13,7 @@ import (
 type User struct {
 	Email string `json:"email"` // if you are using a user system that has a different name, feel free to change this line
 	HogwartsHouse string `json:"hogwartsHouse"`
-	UpdatedAt string `json:"updatedAt"`
+	LastUpdated string `json:"lastUpdated"`
 }
 
 var userURL string
@@ -73,8 +73,8 @@ func TestUpdate(t *testing.T) {
 	if response.HogwartsHouse != "Gryffindor" {
 		t.Errorf("No hogwartsHouse returned: expected %s but received %s", "Gryffindor", response.HogwartsHouse)
 	}
-	if response.UpdatedAt != "2020-04-14T13:13:13+00:00" {
-		t.Errorf("Invalid updatedAt value: expected %s but received %s", "2020-04-14T13:13:13+00:00", response.UpdatedAt)
+	if response.LastUpdated != "2020-04-14T13:13:13+00:00" {
+		t.Errorf("Invalid lastUpdated value: expected %s but received %s", "2020-04-14T13:13:13+00:00", response.LastUpdated)
 	}
 }
 
