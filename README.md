@@ -60,7 +60,7 @@ This work style isn't for everyone, and that's ok!
  - Build two (2) API endpoints. You can build these on whatever compute you choose with any supported language, lambda, fargate, EC2. You choose! (for reference we like Go with Lambda)
     - Endpoint 1: PUT updateUser, with the following custom attributes.
         - Hogwarts house in camelCase (hogwartsHouse), a string / enum value with options of (Gryffindor, Slytherin, Ravenclaw, Hufflepuff)
-        - Last Updated in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) Datetime camelCase (lastUpdated), a string date format. (for reference we like 2020-04-14T13:13:13+00:00)
+        - Updated at in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) Datetime camelCase (updatedAt), a string date format. (for reference we like 2020-04-14T13:13:13+00:00)
         - Where you store these attributes is up to you: SQL database for user metadata, redis, inside the auth system if supported. All acceptable choices, just be prepared to answer the 'why?'
    - Endpoint 2: GET getUser and will return email, hogwartsHouse, and lastUpdated
 - Both of these need to live at https://YOURURL/api/v1/users and should return a status code of 200 along with the 3 attributes
