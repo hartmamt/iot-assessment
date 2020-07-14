@@ -1,0 +1,73 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Hogwarts Auth</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+    <script>
+        function selectText() {
+            const input = document.getElementById('id_token');
+            input.focus();
+            input.select();
+        }
+        function load() {
+            // alert(window.top.location.hash.substr(1).split('&'));
+            var auth = window.top.location.hash.substr(1).split('&');
+            auth.map((element) => element.toString().startsWith('id_token') ?  document.getElementById('id_token').innerHTML = element.substr(9) : null)
+           // const found = auth.find(element => element.toString().startsWith('id_token'));
+           // token.innerHTML = auth;
+        }
+        window.onload = load;
+    </script>
+</head>
+<body class="text-center">
+<!--
+id_token=eyJraWQiOiJDRWVDdmNmKzlUSTVMZ3VvZnQweVwvV0c2QkJXQWEwTXZ0ZDJEWmVkWjJlcz0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoicWR5NVFxSF9Dbmt5WWNLZDVrWWp2USIsInN1YiI6ImM1YjI4MjU1LTBlNDYtNDExYi04OTdmLTUxZDNlM2Q3NDNjNyIsImF1ZCI6IjNybXQ0anY5ajFlMXJuYThpdDNtZTB2cTl0IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJldmVudF9pZCI6ImQzODdjZmQwLWQ2NWUtNGIwYS1hMGEyLThiYTcyN2QyN2Q2ZCIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTk0NjQ3NjU4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9Nc0RaRVBTcWsiLCJjb2duaXRvOnVzZXJuYW1lIjoiYzViMjgyNTUtMGU0Ni00MTFiLTg5N2YtNTFkM2UzZDc0M2M3IiwiZXhwIjoxNTk0NjUxMjU4LCJpYXQiOjE1OTQ2NDc2NTgsImVtYWlsIjoibWF0dGFuZGFsaXNzYUBnbWFpbC5jb20ifQ.NQkY3TDCVPG4eOazIJuHlaYubW-TXOGm5ccWPccna6af2D35tu9qrp6kMABWXxyC2EP7ulYwx1Hth7lmKx3Edkr-f75AJnjHWcdllzp3oOdHcFDdqRVlrFmDi2GgoAqZgiRDOV_cDkqJfh1x4u9NhZwzuc1-svGPNZ7f7BLzwLxMLRRtc9GYjcggObOeTDC8AE_YcZ1H8YZuGkfyZuxqeskEWW7AwQl1b2UNUjThjRgUWHkpPuQsmv5duBbpkuphmL_MbC2ElWMuOCTh39BY8bDmjKt2ycHt909BOWyGl4L8IV9gDP7GkLGvym_BLglWVhcUmtde1G6xd_QAklRHKg&access_token=eyJraWQiOiJVVFwvTmF1SWJvbDlSN01SemducG4ydWszQXlmSENtRGU3eTk0b3l1MFViST0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNWIyODI1NS0wZTQ2LTQxMWItODk3Zi01MWQzZTNkNzQzYzciLCJldmVudF9pZCI6ImQzODdjZmQwLWQ2NWUtNGIwYS1hMGEyLThiYTcyN2QyN2Q2ZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoib3BlbmlkIGVtYWlsIiwiYXV0aF90aW1lIjoxNTk0NjQ3NjU4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0yLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMl9Nc0RaRVBTcWsiLCJleHAiOjE1OTQ2NTEyNTgsImlhdCI6MTU5NDY0NzY1OCwidmVyc2lvbiI6MiwianRpIjoiZWM3MGE4ZTQtNzNhMy00ODFhLWI3NWYtMDdlYTAxZjhlODM4IiwiY2xpZW50X2lkIjoiM3JtdDRqdjlqMWUxcm5hOGl0M21lMHZxOXQiLCJ1c2VybmFtZSI6ImM1YjI4MjU1LTBlNDYtNDExYi04OTdmLTUxZDNlM2Q3NDNjNyJ9.A0jku2n-G8RmM5d9xfFlQOGzLQgDmT8eQotSlm66oe_iwnS5Trb5_6d12eDEmbu3zViOoF27vWytQuXdrR8S8iUk5_uoAdJzwK9LsSVbK6wiXRVAgMk0zcITCg_cLh_RX6K1sxpINulk2R13gmoCq6RHF4ElQZIwxBmLI4J1LJIBOmGAqH2_NTQ8iXBH60C8ds5UefqDDTIY6tp6dmBzPvj4W5U3zA8HexZ0Fshzq8NhZ5MpkwzNbcRq2szYb3otXTPLdK0T689sQmeSQC9i5pRV3Ujqwmk6AC9p6yp29lvEY0LEPJcvwRppvu3NBlcmcpeKlin1S2uEfQd8N0t5yQ
+expires_in=3600
+token_type=Bearer
+-->
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">Hogwarts Auth</h1>
+        <div class="form-group">
+            <label for="id_token">ID Token</label>
+            <textarea class="form-control" id="id_token" rows="3" onclick="selectText()"></textarea>
+        </div>
+    </main>
+
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

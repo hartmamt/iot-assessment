@@ -52,5 +52,8 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Makefile Stuff
+deploy.done
+init.done
 # Mac stuff
 .DS_STORE
