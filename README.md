@@ -1,5 +1,47 @@
 # Platform Assessment
 
+### Overview
+
+First, I wanted to say thank you so much for the opportunity to work on this challenge.  It is the funnest
+interview question I've ever had. :) I'm excited for the opportunity to walk through what I've done, including
+my thought process and challenges I faced along the way.
+
+###Approach
+
+My approach was geared towards two things, using a stack that is as close to what P&G is using as possible and 
+pass the test results without adding any more technology than required. 
+
+- Auth System - I chose Cognito because is tightly integrated with other AWS services I planned on using. I also 
+knew that the team used Cognito and would be able to help if I had any questions. Cognito worked very well for this
+project! Some of my favorite things with Cognito included
+    - The Hosted UI removed the need for a front end application with the exception of a simple static HTML file that
+    I used to display the Authorization Token to make it easy to generate the Authorization header.
+    - I wanted to automatically store the user in the database on confirmation. Using Cognito's trigger for post
+    confirmation made it super easy to do this!
+- API Gateway - For the API gateway I again chose to stay with the AWS stack. I had never used this product before so
+it was also something I was excited to dig into.  
+    - This felt like a perfect choice because I really wanted to use Lambdas as part of the API, setting this up with
+    Terraform was really fun.  Being able to simple declare an API with various resources and see it built out was
+    pretty amazing.
+- Persistence - I chose DynamoDB for storing the user attributes. I made this decision not only because it is part of the same
+AWS stack but also because it is a technology that I know the team uses.  I haven't had a chance to use DynamoDB before 
+but found it pretty straight forward.
+- Golang and Lambdas - Having only played around with Lambdas a long time ago while trying to make an Alexa skill, I was
+really excited to get into them again.  I also chose Golang as my development language so I would have a chance to dig
+more into the syntax and using it in a more real world situation.  Most of my recent experience has been using Javascript
+so it was definitely a treat switching to Golang!
+    - I loved using Goland for an IDE.  It had a lot of great tools built in and definitely felt like a step up for this
+    use case over Visual Studio Code.
+    - I felt like I was able to write more concise and simple code and appreciated that the compiler forced you to remove
+    any variables or imports that weren't used.  
+    - I definitely have a lot more to learn but was able to find good guides and tutorials to get the job done.
+    - Lambdas are awesome.  I loved not having to have my code coupled in with my node js service (express or hapijs).
+    
+    
+    
+
+
+
 ### Contents
 - [Welcome](#welcome)
 - [The Platform Team](#the-platform-team)

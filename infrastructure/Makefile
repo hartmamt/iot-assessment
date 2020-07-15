@@ -5,12 +5,12 @@ test: deploy.done
 
 clean:
 	terraform destroy
-	rm -f init.done deploy.done getUser.zip getUser
+	rm -f init.done deploy.done
 
 init.done:
 	terraform init
 	touch $@
 
-deploy.done: init.done main.tf ../api/getUser.zip
+deploy.done: init.done main.tf ../api/bin/getUser.zip ../postconfirmation/bin/postConfirmation.zip
 	terraform apply
 	touch $@

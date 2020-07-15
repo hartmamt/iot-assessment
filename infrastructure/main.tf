@@ -13,11 +13,12 @@ provider aws {
 data "aws_region" "current" {
 }
 
+#Output the URL used to sign up / sign in
 output "loginurl" {
   value = "https://${aws_cognito_user_pool_domain.default.domain}.auth.${data.aws_region.current.name}.amazoncognito.com/login?client_id=${aws_cognito_user_pool_client.client.id}&response_type=token&scope=email+openid&redirect_uri=https://${element(aws_cloudfront_distribution.demos3staticweb_distribution.origin[*].domain_name,0)}/index.html"
 }
 
 # Set the generated URL as an output. Run `terraform output url` to get this.
-output "url" {
+output "CHALLENGE_URL" {
   value = "${aws_api_gateway_deployment.users_v1.invoke_url}${aws_api_gateway_resource.users.path}"
 }
