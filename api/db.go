@@ -7,10 +7,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"log"
+	"os"
 	"time"
 )
 
-var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion("us-east-2"))
+var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion(os.Getenv("AWS_REGION")))
 
 func getItem(username string) (*user, error) {
 	// Prepare the input for the query.

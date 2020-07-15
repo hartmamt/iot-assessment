@@ -6,13 +6,12 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	//"encoding/json"
 	"log"
 	"net/http"
 	"os"
 )
 
-var errorLogger = log.New(os.Stderr, "ERROR ", log.Llongfile)
+var errorLogger = log.New(os.Stderr, "ERROR", log.Llongfile)
 
 type user struct {
 	Email         string        `json:"email"`

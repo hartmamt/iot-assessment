@@ -12,9 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"time"
 )
-var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion("us-east-2"))
-
-var errorLogger = log.New(os.Stderr, "ERROR ", log.Llongfile)
+var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion(os.Getenv("AWS_REGION")))
 
 type user struct {
 	Email         string        `json:"email"`
