@@ -11,6 +11,6 @@ init.done:
 	terraform init
 	touch $@
 
-deploy.done: init.done main.tf ../api/bin/getUser.zip ../postconfirmation/bin/postConfirmation.zip
+deploy.done: init.done main.tf ../api/getUser.zip ../postconfirmation/postConfirmation.zip
 	terraform apply
 	touch $@

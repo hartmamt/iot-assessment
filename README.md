@@ -36,7 +36,10 @@ so it was definitely a treat switching to Golang!
     any variables or imports that weren't used.  
     - I definitely have a lot more to learn but was able to find good guides and tutorials to get the job done.
     - Lambdas are awesome.  I loved not having to have my code coupled in with my node js service (express or hapijs).
-    
+- Web Front End - I only needed a static HTML page for the Cognito hosted UI to redirect a user to after sign in / sign
+up.  I used Cloudfront for hosting and S3 for the static html / css storage.  I wrote some simple Javascript to grab the
+ID_TOKEN out of the URL and displayed it in an HTML TextArea that automatically does a select all when clicked.  The
+purpose of this was just to make a simple way to copy the ID_Token used for the authentication header when making API calls.
     
     
 

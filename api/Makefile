@@ -1,9 +1,9 @@
 .PHONY: test clean
 
-getUser.zip: bin/getUser
-	zip bin/$@ $<
+getUser.zip: getUser
+	zip $@ $<
 
-bin/getUser: main.go
+getUser: main.go
 	go get .
 	GOOS=linux GOARCH=amd64 go build -o $@
 
