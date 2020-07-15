@@ -32,7 +32,7 @@ func TestUpdate(t *testing.T) {
 	httpClient := http.Client{}
 	body := map[string]interface{}{
 		"hogwartsHouse": "Gryffindor",
-		"lastUpdated":  "2020-04-14T13:13:13+00:00",
+		"updatedAt":  "2020-04-14T13:13:13+00:00",
 	}
 	messageBody, err := json.Marshal(body)
 	if err != nil {

@@ -9,6 +9,7 @@ provider aws {
 
 # Your HCL goes below! You got this!
 
+
 # This is required to get the AWS region via ${data.aws_region.current}.
 data "aws_region" "current" {
 }

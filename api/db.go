@@ -44,7 +44,12 @@ func getItem(username string) (*user, error) {
 }
 
 // Add a user record to DynamoDB.
-func putItem(u *user) error {
+func putItem(u *user) (*user, error) {
+
+	lastUpdated := u.UpdatedAt
+	if lastUpdated == "" {
+		u.UpdatedAt = time.Now().String()
+	}
 	input := &dynamodb.PutItemInput{
 		TableName: aws.String("someTable"),
 		Item: map[string]*dynamodb.AttributeValue{
@@ -57,11 +62,11 @@ func putItem(u *user) error {
 			"email": {
 				S: aws.String(u.Email),
 			},
-			"lastUpdated": {
-				S: aws.String(time.Now().String()),
+			"updatedAt": {
+				S: aws.String(u.UpdatedAt),
 			},
 		},
 	}
 	_, err := db.PutItem(input)
-	return err
+	return u, err
 }

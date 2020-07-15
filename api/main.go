@@ -17,7 +17,7 @@ var errorLogger = log.New(os.Stderr, "ERROR ", log.Llongfile)
 type user struct {
 	Email         string        `json:"email"`
 	HogwartsHouse string `json:"hogwartsHouse"`
-	UpdatedAt     string     `json:"lastUpdated"`
+	UpdatedAt     string     `json:"updatedAt"`
 	UserName string `json:"username"`
 }
 
@@ -74,6 +74,8 @@ func create(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, 
 	putUser := new(user)
 
 	err := json.Unmarshal([]byte(req.Body), putUser)
+	putUser.UserName = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["cognito:username"])
+	putUser.Email = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["email"])
 
 	if err != nil {
 		log.Printf("unmarshal err:  %#v \n", err)
@@ -87,18 +89,18 @@ func create(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, 
 		return clientError(http.StatusBadRequest)
 	}
 
-	if putUser.UserName=="" {
-		return clientError(http.StatusBadRequest)
-	}
+	responseUser := new(user)
 
-	err = putItem(putUser)
+	responseUser, err = putItem(putUser)
+	js, err := json.Marshal(responseUser)
 	if err != nil {
 		return serverError(err)
 	}
 
 	return events.APIGatewayProxyResponse{
-		StatusCode: 201,
-		Headers:    map[string]string{"Location": fmt.Sprintf("/user?username=%s", putUser.UserName)},
+		StatusCode: http.StatusOK,
+		Headers:    map[string]string{"Content-Type": "application/json; charset=utf-8"},
+		Body:       string(js),
 	}, nil
 }
 

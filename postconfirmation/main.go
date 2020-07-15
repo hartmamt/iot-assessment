@@ -18,7 +18,7 @@ var errorLogger = log.New(os.Stderr, "ERROR ", log.Llongfile)
 type user struct {
 	Email         string        `json:"email"`
 	HogwartsHouse string `json:"hogwartsHouse"`
-	UpdatedAt     string     `json:"lastUpdated"`
+	UpdatedAt     string     `json:"updatedAt"`
 	UserName string `json:"username"`
 }
 
@@ -36,7 +36,7 @@ func putItem(u *user) error {
 			"email": {
 				S: aws.String(u.Email),
 			},
-			"lastUpdated": {
+			"updatedAt": {
 				S: aws.String(time.Now().String()),
 			},
 		},
