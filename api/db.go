@@ -48,7 +48,7 @@ func putItem(u *user) (*user, error) {
 
 	lastUpdated := u.UpdatedAt
 	if lastUpdated == "" {
-		u.UpdatedAt = time.Now().String()
+		u.UpdatedAt = time.Now().Format(time.RFC3339)
 	}
 	input := &dynamodb.PutItemInput{
 		TableName: aws.String("someTable"),

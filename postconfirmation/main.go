@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -37,7 +38,7 @@ func putItem(u *user) error {
 				S: aws.String(u.Email),
 			},
 			"updatedAt": {
-				S: aws.String(time.Now().String()),
+				S: aws.String(strings.Replace(time.Now().Format(time.RFC3339),"Z","+00:00",-1)),
 			},
 		},
 	}

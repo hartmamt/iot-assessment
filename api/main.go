@@ -117,8 +117,6 @@ func serverError(err error) (events.APIGatewayProxyResponse, error) {
 func clientError(status int) (events.APIGatewayProxyResponse, error) {
 	return events.APIGatewayProxyResponse{
 		StatusCode: status,
-		//Body:       "testing",
-
 		Headers:    map[string]string{"Content-Type": "text/plain; charset=utf-8"},
 		Body:       string(http.StatusText(status)),
 	}, nil
