@@ -57,7 +57,7 @@ func putItem(u *user) (*user, error) {
 			"username": {
 				S: aws.String(u.UserName),
 			},
-			"howgwartsHouse": {
+			"hogwartsHouse": {
 				S: aws.String(string(u.HogwartsHouse)),
 			},
 			"email": {
