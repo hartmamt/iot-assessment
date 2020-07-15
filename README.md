@@ -6,7 +6,7 @@ First, I wanted to say thank you so much for the opportunity to work on this cha
 interview question I've ever had. :) I'm excited for the opportunity to walk through what I've done, including
 my thought process and challenges I faced along the way.
 
-###Approach
+### Approach
 
 My approach was geared towards two things, using a stack that is as close to what P&G is using as possible and 
 pass the test results without adding any more technology than required. 
