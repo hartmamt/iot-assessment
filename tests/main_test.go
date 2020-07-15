@@ -28,7 +28,7 @@ func TestUpdate(t *testing.T) {
 	if len(authHeader) < 4 {
 		t.Error("No AUTH_HEADER from environment variable")
 	}
-	userURL = fmt.Sprintf("https://%s/api/v1/users", u)
+	userURL = fmt.Sprintf("https://%s/v1/users", u)
 	httpClient := http.Client{}
 	body := map[string]interface{}{
 		"hogwartsHouse": "Gryffindor",
@@ -87,7 +87,7 @@ func TestGet(t *testing.T) {
 	if len(authHeader) < 4 {
 		t.Error("No AUTH_HEADER from environment variable")
 	}
-	userURL = fmt.Sprintf("https://%s/api/v1/users", u)
+	userURL = fmt.Sprintf("https://%s/v1/users", u)
 	httpClient := http.Client{}
 
 	req, err := http.NewRequest("GET", userURL, nil)
