@@ -77,7 +77,7 @@ func create(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, 
 	putUser.Email = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["email"])
 
 	if err != nil {
-		log.Printf("unmarshal err:  %#v \n", err)
+		log.Printf("unmarshal err:  rm%#v \n", err)
 	}
 
 	if err != nil {
