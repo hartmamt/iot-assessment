@@ -1,0 +1,1 @@
+http PUT https://9otfm6fbb1.execute-api.us-east-2.amazonaws.com/v1/users hogwartsHouse=$1 Authorization:$2

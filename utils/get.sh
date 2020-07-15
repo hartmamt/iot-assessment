@@ -1,0 +1,1 @@
+http -j https://9otfm6fbb1.execute-api.us-east-2.amazonaws.com/v1/users Authorization:$1

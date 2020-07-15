@@ -1,5 +1,12 @@
 # Platform Assessment
 
+Challenge API URL
+- https://9otfm6fbb1.execute-api.us-east-2.amazonaws.com/v1/users
+
+User sign up URL
+- https://hogwarts1.auth.us-east-2.amazoncognito.com/login?client_id=6g9agk3ovdpv56vkqi2ri0j5l9&response_type=token&scope=email+openid&redirect_uri=https://hogwarts-demos3staticweb.s3.us-east-2.amazonaws.com/index.html
+
+
 ### Overview
 
 First, I wanted to say thank you so much for the opportunity to work on this challenge.  It is the funnest
