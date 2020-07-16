@@ -2,7 +2,7 @@
 This solution uses the Lambda service by AWS.
 
 ### User API
-The userAPI Lambda is connected to the AWS API Gateway and handles GET and PUT HTTM methods.
+The userAPI Lambda is connected to the AWS API Gateway and handles GET and PUT HTTP methods.
 
 ### Post Confirmation
 
