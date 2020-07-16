@@ -18,22 +18,22 @@ my thought process and challenges I faced along the way.
 My approach was geared towards two things, using a stack that is as close to what P&G is using as possible and 
 pass the test results without adding any more technology than required. 
 
-- Auth System - I chose Cognito because is tightly integrated with other AWS services I planned on using. I also 
+- **Auth System** - I chose Cognito because is tightly integrated with other AWS services I planned on using. I also 
 knew that the team used Cognito and would be able to help if I had any questions. Cognito worked very well for this
 project! Some of my favorite things with Cognito included
     - The Hosted UI removed the need for a front end application with the exception of a simple static HTML file that
     I used to display the Authorization Token to make it easy to generate the Authorization header.
     - I wanted to automatically store the user in the database on confirmation. Using Cognito's trigger for post
     confirmation made it super easy to do this!
-- API Gateway - For the API gateway I again chose to stay with the AWS stack. I had never used this product before so
+- **API Gateway** - For the API gateway I again chose to stay with the AWS stack. I had never used this product before so
 it was also something I was excited to dig into.  
     - This felt like a perfect choice because I really wanted to use Lambdas as part of the API, setting this up with
     Terraform was really fun.  Being able to simple declare an API with various resources and see it built out was
     pretty amazing.
-- Persistence - I chose DynamoDB for storing the user attributes. I made this decision not only because it is part of the same
+- **Persistence** - I chose DynamoDB for storing the user attributes. I made this decision not only because it is part of the same
 AWS stack but also because it is a technology that I know the team uses.  I haven't had a chance to use DynamoDB before 
 but found it pretty straight forward.
-- Golang and Lambdas - Having only played around with Lambdas a long time ago while trying to make an Alexa skill, I was
+- **Golang and Lambdas** - Having only played around with Lambdas a long time ago while trying to make an Alexa skill, I was
 really excited to get into them again.  I also chose Golang as my development language so I would have a chance to dig
 more into the syntax and using it in a more real world situation.  Most of my recent experience has been using Javascript
 so it was definitely a treat switching to Golang!
@@ -43,14 +43,19 @@ so it was definitely a treat switching to Golang!
     any variables or imports that weren't used.  
     - I definitely have a lot more to learn but was able to find good guides and tutorials to get the job done.
     - Lambdas are awesome.  I loved not having to have my code coupled in with my node js service (express or hapijs).
-- Web Front End - I only needed a static HTML page for the Cognito hosted UI to redirect a user to after sign in / sign
+- **Web Front End** - I only needed a static HTML page for the Cognito hosted UI to redirect a user to after sign in / sign
 up.  I used Cloudfront for hosting and S3 for the static html / css storage.  I wrote some simple Javascript to grab the
 ID_TOKEN out of the URL and displayed it in an HTML TextArea that automatically does a select all when clicked.  The
 purpose of this was just to make a simple way to copy the ID_Token used for the authentication header when making API calls.
     
-    
+### Challenges
+
+The biggest challenge for me was mostly learning how all the AWS pieces fit together. Having a background in IAM, databases, and middleware was helpful and once I dug more into the stack things seemed to fall into place.
+
+Golang is fairly new to me as a language so I did have to spend a fair amount of time reading blog posts and going through Stackoverflow questions. I felt the community was helpful and it was not difficult to find the answers to my questions. I definitely would like to spend more time learning the specifics of Golang but I felt like I was able to get the basic use case done. I have lots of questions and would love feedback on any places in my code that could use improving for either performance or readability.
 
 
+# Original README starts here
 
 ### Contents
 - [Welcome](#welcome)
