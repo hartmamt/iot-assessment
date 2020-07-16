@@ -1,6 +1,6 @@
 # Utils
 This folder contains two scripts that are useful for testing.  The both require the installation of
-[HTTPie] (https://httpie.org/). Instation details are available on their website.
+HTTPie (https://httpie.org/). Instation details are available on their website.
 
 ### get.sh
 
