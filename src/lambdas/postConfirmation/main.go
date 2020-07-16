@@ -39,6 +39,7 @@ func putItem(u *User) error {
 				S: aws.String(u.Email),
 			},
 			"updatedAt": {
+				// RFC3339 is close to the desired time standard. In order to exactly meet it replace Z with +00:00
 				S: aws.String(strings.Replace(time.Now().Format(time.RFC3339),"Z","+00:00",-1)),
 			},
 		},

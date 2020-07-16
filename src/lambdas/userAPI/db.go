@@ -51,6 +51,7 @@ func putItem(u *User) (*User, error) {
 	lastUpdated := u.UpdatedAt
 
 	if lastUpdated == "" {
+		// RFC3339 is close to the desired time standard. In order to exactly meet it replace Z with +00:00
 		u.UpdatedAt = strings.Replace(time.Now().Format(time.RFC3339),"Z","+00:00",-1)
 	}
 	input := &dynamodb.PutItemInput{

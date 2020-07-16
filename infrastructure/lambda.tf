@@ -4,9 +4,9 @@
 # The handler is the name of the executable for go1.x runtime.
 resource "aws_lambda_function" "getUser" {
   function_name = "getUser"
-  filename      = "../api/getUser.zip"
+  filename      = "../src/lambdas/userAPI/getUser.zip"
   handler       = "getUser"
-  source_code_hash = filebase64sha256("../api/getUser.zip")
+  source_code_hash = filebase64sha256("../src/lambdas/userAPI/getUser.zip")
   role             = aws_iam_role.getUser.arn
   runtime          = "go1.x"
   memory_size      = 128
@@ -15,9 +15,9 @@ resource "aws_lambda_function" "getUser" {
 
 resource "aws_lambda_function" "postConfirmation" {
   function_name = "postConfirmation"
-  filename      = "../postconfirmation/postConfirmation.zip"
+  filename      = "../src/lambdas/postConfirmation/postConfirmation.zip"
   handler       = "postConfirmation"
-  source_code_hash = filebase64sha256("../postconfirmation/postConfirmation.zip")
+  source_code_hash = filebase64sha256("../src/lambdas/postConfirmation/postConfirmation.zip")
   role             = aws_iam_role.getUser.arn
   runtime          = "go1.x"
   memory_size      = 128
