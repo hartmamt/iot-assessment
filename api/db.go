@@ -8,12 +8,13 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
 var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion(os.Getenv("AWS_REGION")))
 
-func getItem(username string) (*user, error) {
+func getItem(username string) (*User, error) {
 	// Prepare the input for the query.
 	input := &dynamodb.GetItemInput{
 		TableName: aws.String("someTable"),
@@ -35,7 +36,7 @@ func getItem(username string) (*user, error) {
 		return nil, nil
 	}
 
-	u := new(user)
+	u := new(User)
 	err = dynamodbattribute.UnmarshalMap(result.Item, u)
 	if err != nil {
 		return nil, err
@@ -44,12 +45,13 @@ func getItem(username string) (*user, error) {
 	return u, nil
 }
 
-// Add a user record to DynamoDB.
-func putItem(u *user) (*user, error) {
+// Add a User record to DynamoDB.
+func putItem(u *User) (*User, error) {
 
 	lastUpdated := u.UpdatedAt
+
 	if lastUpdated == "" {
-		u.UpdatedAt = time.Now().Format(time.RFC3339)
+		u.UpdatedAt = strings.Replace(time.Now().Format(time.RFC3339),"Z","+00:00",-1)
 	}
 	input := &dynamodb.PutItemInput{
 		TableName: aws.String("someTable"),

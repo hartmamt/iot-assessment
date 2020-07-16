@@ -12,17 +12,20 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"time"
 )
+
+// Establish DynamoDB connection
 var db = dynamodb.New(session.New(), aws.NewConfig().WithRegion(os.Getenv("AWS_REGION")))
 
-type user struct {
+// User defines the Cognito User and its JSON representation
+type User struct {
 	Email         string        `json:"email"`
 	HogwartsHouse string `json:"hogwartsHouse"`
 	UpdatedAt     string     `json:"updatedAt"`
 	UserName string `json:"username"`
 }
 
-// Add a user record to DynamoDB.
-func putItem(u *user) error {
+// putItem adds/updates a User record in DynamoDB.
+func putItem(u *User) error {
 	input := &dynamodb.PutItemInput{
 		TableName: aws.String("someTable"),
 		Item: map[string]*dynamodb.AttributeValue{
@@ -44,16 +47,18 @@ func putItem(u *user) error {
 	return err
 }
 
+// Handler uses the postConfirmation event from Cognito to PUT the User and attributes
+// into the database
 func Handler(event events.CognitoEventUserPoolsPostConfirmation) (events.CognitoEventUserPoolsPostConfirmation, error) {
 
-	email := event.Request.UserAttributes["email"]
-	username := event.UserName
+	//Populate User with UserName and email from the Cognito event's User attributes
+	putUser := new(User)
+	putUser.UserName = event.UserName
+	putUser.Email = event.Request.UserAttributes["email"]
 
-	putUser := new(user)
-	putUser.UserName = username
-	putUser.Email = email
-
+	//Put User into database
 	err := putItem(putUser)
+
 	if err != nil {
 		log.Printf("db err:  %#v \n", err)
 	}

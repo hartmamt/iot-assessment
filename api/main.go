@@ -13,13 +13,16 @@ import (
 
 var errorLogger = log.New(os.Stderr, "ERROR", log.Llongfile)
 
-type user struct {
-	Email         string        `json:"email"`
+// User defines the Cognito User and its JSON representation
+type User struct {
+	Email         string `json:"email"`
 	HogwartsHouse string `json:"hogwartsHouse"`
-	UpdatedAt     string     `json:"updatedAt"`
-	UserName string `json:"username"`
+	UpdatedAt     string `json:"updatedAt"`
+	UserName      string `json:"username"`
 }
 
+// IsValidHogwartsHouse validates a given string against possible
+// Hogwarts Houses
 func IsValidHogwartsHouse(house string) bool {
 	switch house {
 	case
@@ -32,25 +35,35 @@ func IsValidHogwartsHouse(house string) bool {
 	return false
 }
 
+// handleRequests acts a router and passes the request to the correct
+// function based on its HTTPMethod
 func handleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	switch req.HTTPMethod {
 	case "GET":
 		return show(req)
 	case "PUT":
-		return create(req)
+		return update(req)
 	default:
 		log.Printf("method not found:  %#v \n", req.HTTPMethod)
 		return clientError(http.StatusMethodNotAllowed)
 	}
 }
 
-// The input type and the output type are defined by the API Gateway.
+// show will use the cognito:username of the current use and return
+// its House, Email, and Updated Last timestamp
 func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
+	//Extract unique cognito:username claim from Request
 	cognitouser := fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["cognito:username"])
 
+	//Get attributes from database
 	u, err := getItem(cognitouser)
 
+	if err != nil {
+		return serverError(err)
+	}
+
+	//Marshal User to JSON
 	js, err := json.Marshal(u)
 
 	if err != nil {
@@ -65,37 +78,42 @@ func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, er
 	return res, nil
 }
 
-func create(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+func update(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+
+	// Validate that the request contains the appropriate json header
 	if req.Headers["content-type"] != "application/json" && req.Headers["Content-Type"] != "application/json" {
 		return clientError(http.StatusNotAcceptable)
 	}
 
-	putUser := new(user)
-
+	// Unmarshal Cognito User from Request Body
+	putUser := new(User)
 	err := json.Unmarshal([]byte(req.Body), putUser)
-	putUser.UserName = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["cognito:username"])
-	putUser.Email = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["email"])
-
-	if err != nil {
-		log.Printf("unmarshal err:  rm%#v \n", err)
-	}
 
 	if err != nil {
 		return clientError(http.StatusUnprocessableEntity)
 	}
 
-	if !IsValidHogwartsHouse(string(putUser.HogwartsHouse)){
+	// Username and Email should be read only, override these with values from the Claim
+	putUser.UserName = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["cognito:username"])
+	putUser.Email = fmt.Sprintf("%v", req.RequestContext.Authorizer["claims"].(map[string]interface{})["email"])
+
+	// Validate Hogwarts House
+	if !IsValidHogwartsHouse(string(putUser.HogwartsHouse)) {
 		return clientError(http.StatusBadRequest)
 	}
 
-	responseUser := new(user)
-
+	// Call putItem to `upsert` the User in the database
+	responseUser := new(User)
 	responseUser, err = putItem(putUser)
+
+	// Marshal User to JSON
 	js, err := json.Marshal(responseUser)
+
 	if err != nil {
 		return serverError(err)
 	}
 
+	// Return JSON version of User with appropriate headers
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
 		Headers:    map[string]string{"Content-Type": "application/json; charset=utf-8"},
@@ -105,11 +123,10 @@ func create(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, 
 
 func serverError(err error) (events.APIGatewayProxyResponse, error) {
 	errorLogger.Println(err.Error())
-
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusInternalServerError,
 
-		Body:       http.StatusText(http.StatusInternalServerError),
+		Body: http.StatusText(http.StatusInternalServerError),
 	}, nil
 }
 
