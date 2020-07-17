@@ -78,6 +78,9 @@ func show(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, er
 	return res, nil
 }
 
+// update will update the database with the submitted Hogwarts House.  It will set UpdatedLast to current time
+// unless UpdatedLast is provided in the submitted data. If UpdatedLast is present, it will use that instead of
+// current time.
 func update(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 
 	// Validate that the request contains the appropriate json header
