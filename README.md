@@ -41,6 +41,8 @@ so it was definitely a treat switching to Golang!
     use case over Visual Studio Code.
     - I felt like I was able to write more concise and simple code and appreciated that the compiler forced you to remove
     any variables or imports that weren't used.  
+    - Coding without try..catch was really interesting. I thought it was an odd design decision for a language until I read several articles
+    talking about how it forces developers to handle every error instead of writing generic handling code for a block.
     - I definitely have a lot more to learn but was able to find good guides and tutorials to get the job done.
     - Lambdas are awesome.  I loved not having to have my code coupled in with my node js service (express or hapijs).
 - **Web Front End** - I only needed a static HTML page for the Cognito hosted UI to redirect a user to after sign in / sign
