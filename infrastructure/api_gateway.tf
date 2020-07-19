@@ -42,7 +42,7 @@ resource "aws_api_gateway_integration" "users" {
   http_method             = aws_api_gateway_method.users.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.getUser.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.userAPI.arn}/invocations"
 }
 
 resource "aws_api_gateway_integration" "putUser" {
@@ -51,7 +51,7 @@ resource "aws_api_gateway_integration" "putUser" {
   http_method             = aws_api_gateway_method.putUser.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.getUser.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.userAPI.arn}/invocations"
 }
 
 # This resource defines the URL of the API Gateway.

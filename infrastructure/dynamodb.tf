@@ -13,7 +13,7 @@ resource "aws_dynamodb_table" "someTable" {
 # POLICIES
 resource "aws_iam_role_policy" "db_policy" {
   name = "db_policy"
-  role = aws_iam_role.getUser.id
+  role = aws_iam_role.userAPI.id
   policy = <<EOF
 {
   "Version": "2012-10-17",

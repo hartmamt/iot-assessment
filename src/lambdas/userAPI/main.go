@@ -35,7 +35,6 @@ func IsValidHogwartsHouse(house string) bool {
 	return false
 }
 
-// handleRequests acts a router and passes the request to the correct
 // function based on its HTTPMethod
 func handleRequest(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	switch req.HTTPMethod {
