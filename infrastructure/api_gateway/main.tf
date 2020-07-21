@@ -42,7 +42,7 @@ resource "aws_api_gateway_integration" "users" {
   http_method             = aws_api_gateway_method.users.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.userAPI.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.user_api_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_integration" "putUser" {
@@ -51,7 +51,7 @@ resource "aws_api_gateway_integration" "putUser" {
   http_method             = aws_api_gateway_method.putUser.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${aws_lambda_function.userAPI.arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.user_api_lambda_arn}/invocations"
 }
 
 # This resource defines the URL of the API Gateway.
@@ -68,5 +68,5 @@ resource "aws_api_gateway_authorizer" "this" {
   identity_source = "method.request.header.Authorization"
   type          = "COGNITO_USER_POOLS"
   rest_api_id   = aws_api_gateway_rest_api.users.id
-  provider_arns = [aws_cognito_user_pool.pool.arn]
+  provider_arns = var.provider_arns
 }

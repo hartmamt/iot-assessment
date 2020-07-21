@@ -14,14 +14,19 @@ resource "aws_cognito_user_pool" "pool" {
       max_length = 2048
     }
   }
+  lambda_config {
+    # exactly the same semantics as the lambda_config block on the aws_cognito_user_pool
+    #post_confirmation = ""
+    post_confirmation = var.post_confirmation_lambda_arn
+  }
 }
 
 resource "aws_cognito_user_pool_client" "client" {
   name = "${var.iot_prefix}-client"
   user_pool_id = aws_cognito_user_pool.pool.id
   supported_identity_providers = ["COGNITO"]
-  logout_urls = ["https://${element(aws_cloudfront_distribution.demos3staticweb_distribution.origin[*].domain_name,0)}/index.html"]
-  callback_urls = ["https://${element(aws_cloudfront_distribution.demos3staticweb_distribution.origin[*].domain_name,0)}/index.html"]
+  logout_urls = ["https://${var.domain_name}/index.html"]
+  callback_urls = ["https://${var.domain_name}/index.html"]
   allowed_oauth_flows = ["implicit"]
   allowed_oauth_scopes = ["email","openid"]
   allowed_oauth_flows_user_pool_client = true
@@ -31,3 +36,13 @@ resource "aws_cognito_user_pool_domain" "default" {
   domain       = "${var.iot_prefix}1"
   user_pool_id = aws_cognito_user_pool.pool.id
 }
+
+resource "aws_lambda_permission" "allow_execution_from_user_pool" {
+  statement_id = "AllowExecutionFromUserPool"
+  action = "lambda:InvokeFunction"
+  function_name = var.post_confirmation_lambda_name
+  principal = "cognito-idp.amazonaws.com"
+  source_arn = aws_cognito_user_pool.pool.arn
+}
+
+

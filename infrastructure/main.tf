@@ -13,12 +13,37 @@ provider aws {
 data "aws_region" "current" {
 }
 
-#Output the URL used to sign up / sign in
-output "loginurl" {
-  value = "https://${aws_cognito_user_pool_domain.default.domain}.auth.${data.aws_region.current.name}.amazoncognito.com/login?client_id=${aws_cognito_user_pool_client.client.id}&response_type=token&scope=email+openid&redirect_uri=https://${element(aws_cloudfront_distribution.demos3staticweb_distribution.origin[*].domain_name,0)}/index.html"
+module "s3module" {
+  source = "./s3"
+  iot_prefix=var.iot_prefix
 }
 
-# Set the generated URL as an output. Run `terraform output url` to get this.
-output "CHALLENGE_URL" {
-  value = "${aws_api_gateway_deployment.users_v1.invoke_url}${aws_api_gateway_resource.users.path}"
+module "cloudfront" {
+  source = "./cloudfront"
+  iot_prefix = var.iot_prefix
+  bucket_regional_domain_name = module.s3module.bucket_regional_domain_name
+}
+
+module "cognito" {
+  source = "./cognito"
+  domain_name = module.cloudfront.domain_name
+  iot_prefix=var.iot_prefix
+  post_confirmation_lambda_name = module.lambda.post_confirmation_lamda_name
+  post_confirmation_lambda_arn = module.lambda.post_confirmation_lambda_arn
+}
+
+module "dynamodb" {
+  source = "./dynamodb"
+  iam_role_userAPI_id = module.lambda.iam_role_userAPI_id
+}
+
+module "lambda" {
+  source = "./lambda"
+}
+
+module "api_gateway" {
+  source = "./api_gateway"
+  provider_arns = [module.cognito.pool_arn]
+  region = data.aws_region.current.name
+  user_api_lambda_arn = module.lambda.user_api_arn
 }

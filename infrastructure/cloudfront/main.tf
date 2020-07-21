@@ -1,7 +1,7 @@
-resource "aws_cloudfront_distribution" "demos3staticweb_distribution" {
+resource "aws_cloudfront_distribution" "demosstaticweb_distribution" {
   origin {
-    domain_name = aws_s3_bucket.static_website_bucket.bucket_regional_domain_name
-    origin_id   = "S3-${var.iot_prefix}-demos3staticweb"
+    domain_name = var.bucket_regional_domain_name
+    origin_id   = "S3-${var.iot_prefix}-demosstaticweb"
   }
 
   enabled             = true
@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "demos3staticweb_distribution" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-${var.iot_prefix}-demos3staticweb"
+    target_origin_id = "S3-${var.iot_prefix}-demosstaticweb"
 
     forwarded_values {
       query_string = false
